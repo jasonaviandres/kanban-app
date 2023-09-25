@@ -11,7 +11,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} refetchInterval={0}>
       <Component {...pageProps} />
     </SessionProvider>
   );
