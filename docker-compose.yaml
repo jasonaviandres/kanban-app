@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  dbsvc:
+    image: 'postgres'
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=kanban
+      - POSTGRES_PASSWORD=kanban-password
+      - POSTGRES_DB=kanban
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+volumes:
+  database-data:
