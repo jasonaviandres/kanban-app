@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { type Size, type SizeStyleProps } from "../types";
-import { type ComponentProps, type PropsWithChildren } from "react";
+import { forwardRef, type ComponentProps, type PropsWithChildren } from "react";
 
 type CardVariant =
   | "simple"
@@ -56,30 +56,36 @@ const CardLabel = ({ title, description }: CardLabelProps) => {
   );
 };
 
-const Card = ({
-  variant = "primary",
-  padding = "small",
-  shadow = "small",
-  children,
-  className,
-  ...restProps
-}: CardBaseProps) => {
-  const cardBaseClass = twMerge(
-    "w-full rounded-2xl",
-    SHADOW_STYLES[shadow],
-    PADDING_STYLES[padding],
-    VARIANT_STYLES[variant],
-    className,
-  );
-  return (
-    <div className={cardBaseClass} {...restProps}>
-      {children}
-    </div>
-  );
-};
+const Card = forwardRef<HTMLDivElement, CardBaseProps>(
+  (
+    {
+      variant = "primary",
+      padding = "small",
+      shadow = "small",
+      children,
+      className,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const cardBaseClass = twMerge(
+      "w-full rounded-2xl",
+      SHADOW_STYLES[shadow],
+      PADDING_STYLES[padding],
+      VARIANT_STYLES[variant],
+      className,
+    );
+    return (
+      <div ref={ref} className={cardBaseClass} {...restProps}>
+        {children}
+      </div>
+    );
+  },
+);
 
-Card.Title = CardTitle;
-Card.Description = CardDescription;
-Card.Label = CardLabel;
+Card.displayName = "Card";
+// Card.Title = CardTitle;
+// Card.Description = CardDescription;
+// Card.Label = CardLabel;
 
 export { Card };
