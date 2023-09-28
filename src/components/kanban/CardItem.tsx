@@ -138,7 +138,6 @@ export const CardItem = forwardRef<HTMLDivElement, CardItemProps>(
               })}
               onChange={(e) => setEditTask(e.target.value)}
             />
-            <p>{task.indexNumber}</p>
           </div>
           <div className="flex items-center">
             <IconButton
